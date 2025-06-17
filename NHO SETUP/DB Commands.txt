@@ -1,0 +1,49 @@
+ps -ef | grep mysqld
+mysql-DBA
+02:59 PM
+m
+check this command
+mysql-DBA
+03:02 PM
+m
+-S /data/mysqldata/mysqld.sock
+Nitin
+03:11 PM
+N
+ZxcvbBvcxz@2025
+Nitin
+03:11 PM
+N
+Hydrobharat
+mysql-DBA
+03:14 PM
+m
+mysql -uroot -p ka pwd chaiye
+mysql-DBA
+03:32 PM
+m
+without password got connection
+mysql-DBA
+03:32 PM
+m
+first iwll change root password then ur user also
+Nitin
+03:33 PM
+N
+Ok
+Nitin
+03:33 PM
+N
+Please set our password as ZxcvbBvcxz@2025
+Nitin
+03:33 PM
+N
+Username Hydrobharat
+mysql-DBA
+03:42 PM
+m
+mysql root user pwd has een changed
+Nitin
+03:55 PM
+N
+P@n@s#n!c

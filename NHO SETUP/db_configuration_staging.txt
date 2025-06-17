@@ -1,0 +1,3 @@
+dbname=nho_lr_db
+Sql Username=:Hydrobharat
+Password: ZxcvbBvcxz@2025
