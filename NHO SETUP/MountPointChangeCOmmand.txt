@@ -1,0 +1,183 @@
+login as: Hydrobharat
+Pre-authentication banner message from server:
+| Authorized uses only. All activity may be monitored and reported.
+End of banner message from server
+Hydrobharat@10.212.141.194's password:
+Register this system with Red Hat Insights: rhc connect
+
+Example:
+# rhc connect --activation-key <key> --organization <org>
+
+The rhc client and Red Hat Insights will enable analytics and additional
+management capabilities on your system.
+View your connected systems at https://console.redhat.com/insights
+
+You can learn more about how to register your system
+using rhc at https://red.ht/registration
+Last login: Wed Jun 18 16:38:25 2025 from 10.26.6.78
+[Hydrobharat@Hydro11 ~]$ df -h
+Filesystem                          Size  Used Avail Use% Mounted on
+devtmpfs                            4.0M     0  4.0M   0% /dev
+tmpfs                                16G   88K   16G   1% /dev/shm
+tmpfs                               6.3G  724K  6.3G   1% /run
+efivarfs                            128M   16K  128M   1% /sys/firmware/efi/efivars
+/dev/mapper/vg_os-lv_root           5.0G  297M  4.8G   6% /
+/dev/mapper/vg_os-lv_usr            6.0G  2.8G  3.3G  46% /usr
+/dev/sda2                          1014M  434M  581M  43% /boot
+/dev/mapper/vg_os-lv_var            5.0G  560M  4.5G  11% /var
+/dev/mapper/vg_os-lv_tmp            5.0G   70M  5.0G   2% /tmp
+/dev/mapper/vg_os-lv_home           5.0G  2.5G  2.6G  49% /home
+/dev/sda1                          1022M  7.1M 1015M   1% /boot/efi
+/dev/mapper/vg_os-lv_var_log        5.0G  827M  4.2G  17% /var/log
+/dev/mapper/vg_os-lv_var_tmp        4.0G   62M  4.0G   2% /var/tmp
+/dev/mapper/vg_os-lv_var_log_audit  5.0G  1.1G  4.0G  22% /var/log/audit
+tmpfs                               3.2G  4.0K  3.2G   1% /run/user/0
+tmpfs                               3.2G  4.0K  3.2G   1% /run/user/1001
+[Hydrobharat@Hydro11 ~]$ sudo -i
+[root@Hydro11 ~]# vgs
+  VG    #PV #LV #SN Attr   VSize   VFree
+  vg_os   1   9   0 wz--n- <98.00g <50.00g
+[root@Hydro11 ~]# mkdir /NHO
+[root@Hydro11 ~]# lsplk
+-bash: lsplk: command not found
+[root@Hydro11 ~]# lsblk
+NAME                       MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda                          8:0    0  100G  0 disk
+├─sda1                       8:1    0    1G  0 part /boot/efi
+├─sda2                       8:2    0    1G  0 part /boot
+└─sda3                       8:3    0   98G  0 part
+  ├─vg_os-lv_root          253:0    0    5G  0 lvm  /
+  ├─vg_os-lv_swap          253:1    0    8G  0 lvm  [SWAP]
+  ├─vg_os-lv_usr           253:2    0    6G  0 lvm  /usr
+  ├─vg_os-lv_home          253:3    0    5G  0 lvm  /home
+  ├─vg_os-lv_tmp           253:4    0    5G  0 lvm  /tmp
+  ├─vg_os-lv_var           253:5    0    5G  0 lvm  /var
+  ├─vg_os-lv_var_tmp       253:6    0    4G  0 lvm  /var/tmp
+  ├─vg_os-lv_var_log       253:7    0    5G  0 lvm  /var/log
+  └─vg_os-lv_var_log_audit 253:8    0    5G  0 lvm  /var/log/audit
+sdb                          8:16   0  300G  0 disk
+sr0                         11:0    1 1024M  0 rom
+[root@Hydro11 ~]# pvcreate /dev/sdb
+  Physical volume "/dev/sdb" successfully created.
+[root@Hydro11 ~]# vgextend vg_os /dev/sdb
+  Volume group "vg_os" successfully extended
+[root@Hydro11 ~]# lvcreate -n lv_nho -L 300G vga_os
+  Volume group "vga_os" not found
+  Cannot process volume group vga_os
+[root@Hydro11 ~]# lvcreate -n lv_nho -L 300G vg_os
+  Logical volume "lv_nho" created.
+[root@Hydro11 ~]# df -Th
+Filesystem                         Type      Size  Used Avail Use% Mounted on
+devtmpfs                           devtmpfs  4.0M     0  4.0M   0% /dev
+tmpfs                              tmpfs      16G   88K   16G   1% /dev/shm
+tmpfs                              tmpfs     6.3G  724K  6.3G   1% /run
+efivarfs                           efivarfs  128M   16K  128M   1% /sys/firmware/efi/efivars
+/dev/mapper/vg_os-lv_root          xfs       5.0G  298M  4.7G   6% /
+/dev/mapper/vg_os-lv_usr           xfs       6.0G  2.8G  3.3G  46% /usr
+/dev/sda2                          xfs      1014M  434M  581M  43% /boot
+/dev/mapper/vg_os-lv_var           xfs       5.0G  561M  4.5G  11% /var
+/dev/mapper/vg_os-lv_tmp           xfs       5.0G   70M  5.0G   2% /tmp
+/dev/mapper/vg_os-lv_home          xfs       5.0G  2.5G  2.6G  49% /home
+/dev/sda1                          vfat     1022M  7.1M 1015M   1% /boot/efi
+/dev/mapper/vg_os-lv_var_log       xfs       5.0G  763M  4.3G  15% /var/log
+/dev/mapper/vg_os-lv_var_tmp       xfs       4.0G   62M  4.0G   2% /var/tmp
+/dev/mapper/vg_os-lv_var_log_audit xfs       5.0G  1.1G  4.0G  22% /var/log/audit
+tmpfs                              tmpfs     3.2G  4.0K  3.2G   1% /run/user/0
+tmpfs                              tmpfs     3.2G  4.0K  3.2G   1% /run/user/1001
+[root@Hydro11 ~]# mkfs.xfs /dev/mapper/vg_os-lv_nho
+meta-data=/dev/mapper/vg_os-lv_nho isize=512    agcount=4, agsize=19660800 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1    bigtime=1 inobtcount=1 nrext64=0
+data     =                       bsize=4096   blocks=78643200, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=38400, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+Discarding blocks...Done.
+[root@Hydro11 ~]# lvremove /dev/vg_os/lv_nho
+Do you really want to remove active logical volume vg_os/lv_nho? [y/n]: y
+  Logical volume "lv_nho" successfully removed.
+[root@Hydro11 ~]# vgs
+  VG    #PV #LV #SN Attr   VSize   VFree
+  vg_os   2   9   0 wz--n- 397.99g 349.99g
+[root@Hydro11 ~]# vgreduce vg_os /dev/sdb
+  Removed "/dev/sdb" from volume group "vg_os"
+[root@Hydro11 ~]# vgs
+  VG    #PV #LV #SN Attr   VSize   VFree
+  vg_os   1   9   0 wz--n- <98.00g <50.00g
+[root@Hydro11 ~]# pvremove /dev/sdb
+  Labels on physical volume "/dev/sdb" successfully wiped.
+[root@Hydro11 ~]# pvcreate /dev/sdb
+  Physical volume "/dev/sdb" successfully created.
+[root@Hydro11 ~]# vgcreate vg_nho /dev/sdb
+  Volume group "vg_nho" successfully created
+[root@Hydro11 ~]# lvcreate -n lv_nho -l 100%FREE vg_nho
+WARNING: xfs signature detected on /dev/vg_nho/lv_nho at offset 0. Wipe it? [y/n]: y
+  Wiping xfs signature on /dev/vg_nho/lv_nho.
+  Logical volume "lv_nho" created.
+[root@Hydro11 ~]# mkfs.xfs /dev/mapper/vg_nho-lv_nho
+meta-data=/dev/mapper/vg_nho-lv_nho isize=512    agcount=4, agsize=19660544 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1    bigtime=1 inobtcount=1 nrext64=0
+data     =                       bsize=4096   blocks=78642176, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=38399, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+Discarding blocks...Done.
+[root@Hydro11 ~]# mount /dev/mapper/vg_nho-lv_nho /NHO
+[root@Hydro11 ~]# df -h /NHO
+Filesystem                 Size  Used Avail Use% Mounted on
+/dev/mapper/vg_nho-lv_nho  300G  2.2G  298G   1% /NHO
+[root@Hydro11 ~]# vi /etc/fstab
+add this line /dev/mapper/vg_nho-lv_nho  /NHO  xfs  defaults  0 0
+
+[root@Hydro11 ~]# umount /NHO
+[root@Hydro11 ~]# df -Th
+Filesystem                         Type      Size  Used Avail Use% Mounted on
+devtmpfs                           devtmpfs  4.0M     0  4.0M   0% /dev
+tmpfs                              tmpfs      16G   88K   16G   1% /dev/shm
+tmpfs                              tmpfs     6.3G  724K  6.3G   1% /run
+efivarfs                           efivarfs  128M   16K  128M   1% /sys/firmware/efi/efivars
+/dev/mapper/vg_os-lv_root          xfs       5.0G  297M  4.8G   6% /
+/dev/mapper/vg_os-lv_usr           xfs       6.0G  2.8G  3.3G  46% /usr
+/dev/sda2                          xfs      1014M  434M  581M  43% /boot
+/dev/mapper/vg_os-lv_var           xfs       5.0G  563M  4.5G  11% /var
+/dev/mapper/vg_os-lv_tmp           xfs       5.0G   70M  5.0G   2% /tmp
+/dev/mapper/vg_os-lv_home          xfs       5.0G  2.5G  2.6G  49% /home
+/dev/sda1                          vfat     1022M  7.1M 1015M   1% /boot/efi
+/dev/mapper/vg_os-lv_var_log       xfs       5.0G  835M  4.2G  17% /var/log
+/dev/mapper/vg_os-lv_var_tmp       xfs       4.0G   62M  4.0G   2% /var/tmp
+/dev/mapper/vg_os-lv_var_log_audit xfs       5.0G  1.1G  4.0G  22% /var/log/audit
+tmpfs                              tmpfs     3.2G  4.0K  3.2G   1% /run/user/0
+tmpfs                              tmpfs     3.2G  4.0K  3.2G   1% /run/user/1001
+[root@Hydro11 ~]# mount -a
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+[root@Hydro11 ~]# systemctl daemon-reload
+[root@Hydro11 ~]# df -Th
+Filesystem                         Type      Size  Used Avail Use% Mounted on
+devtmpfs                           devtmpfs  4.0M     0  4.0M   0% /dev
+tmpfs                              tmpfs      16G   88K   16G   1% /dev/shm
+tmpfs                              tmpfs     6.3G  728K  6.3G   1% /run
+efivarfs                           efivarfs  128M   16K  128M   1% /sys/firmware/efi/efivars
+/dev/mapper/vg_os-lv_root          xfs       5.0G  297M  4.8G   6% /
+/dev/mapper/vg_os-lv_usr           xfs       6.0G  2.8G  3.3G  46% /usr
+/dev/sda2                          xfs      1014M  434M  581M  43% /boot
+/dev/mapper/vg_os-lv_var           xfs       5.0G  567M  4.5G  12% /var
+/dev/mapper/vg_os-lv_tmp           xfs       5.0G   70M  5.0G   2% /tmp
+/dev/mapper/vg_os-lv_home          xfs       5.0G  2.5G  2.6G  49% /home
+/dev/sda1                          vfat     1022M  7.1M 1015M   1% /boot/efi
+/dev/mapper/vg_os-lv_var_log       xfs       5.0G  835M  4.2G  17% /var/log
+/dev/mapper/vg_os-lv_var_tmp       xfs       4.0G   62M  4.0G   2% /var/tmp
+/dev/mapper/vg_os-lv_var_log_audit xfs       5.0G  1.1G  4.0G  22% /var/log/audit
+tmpfs                              tmpfs     3.2G  4.0K  3.2G   1% /run/user/0
+tmpfs                              tmpfs     3.2G  4.0K  3.2G   1% /run/user/1001
+/dev/mapper/vg_nho-lv_nho          xfs       300G  2.2G  298G   1% /NHO
+[root@Hydro11 ~]# ls -ld /NHO
+drwxr-xr-x 2 root root 6 Jun 18 17:34 /NHO
+[root@Hydro11 ~]# rm -rf trend.sh
